@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>TAU Explorer</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/taucommon.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style media="screen">
+  table {
+    min-height: .01%;
+    overflow-x: auto;
+    width: 100%;
+    overflow-y: hidden;
+    max-width: 100%;
+    }
+    table td{
+        word-break: break-all;
+    }
+    #tabs>li>a{
+        display: inline-block;
+        width: 100%;
+    }
+    #tabs>li>a.active{
+        background-color: #ffa726 !important;
+    }
+  </style>
+</head>
+<body>
+{% include 'nav.html' %}
+
+  <div class="container">
+    <div class="section">
+        {% include 'searchcomponent.html' %}
+      <div class="row" style="overflow-x: auto;overflow-y: hidden;">
+            <p class="center-align">{{address}}</p>
+            {% if datas.miningIncome.miningIncome %}
+            <p class="center-align">miningIncome:{{datas.miningIncome.miningIncome}}</p>
+            {% else %}
+            <p class="center-align">miningIncome:0</p>
+
+            {% endif %}
+            <ul id="tabs" class="col l10 offset-l1">
+              <li class="tab col s3"><a class="active waves-effect waves-light btn" href="#send">send</a></li>
+              <li class="tab col s3"><a class="waves-effect waves-light btn" href="#received">received</a></li>
+              <li class="tab col s3"><a class="waves-effect waves-light btn" href="#miningIncome">miningIncome</a></li>
+            </ul>
+            <div id="send" class="col l10 offset-l1" >
+                <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <th>Timestamp</th>
+                          <th>txhash</th>
+                          <th>tx type</th>
+                          <th>Amount (TAU)</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas.sent%}
+                      <tr>
+                          <td>{{data.txtime}}</td>
+                          <td><a href="/tx/{{data.txhash}}">{{data.txhash}}</a></td>
+                          <td>send</td>
+                          <td>{{data.amount}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+            <div id="received" class="col l10 offset-l1" >
+                <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <th>Timestamp</th>
+                          <th>txhash</th>
+                          <th>tx type</th>
+                          <th>Amount (TAU)</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas.received%}
+                      <tr>
+                          <td>{{data.txtime}}</td>
+                          <td><a href="/tx/{{data.txhash}}" >{{data.txhash}}</a></td>
+                          <td>Received</td>
+                          <td>{{data.amount}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+            <div id="miningIncome" class="col l10 offset-l1" >
+                <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <th>Timestamp</th>
+                          <th>txhash</th>
+                          <th>tx type</th>
+                          <th>fee</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas.miningDetail%}
+                      <tr>
+                          <td>{{data.txtime}}</td>
+                          <td><a href="/tx/{{data.txhash}}" >{{data.txhash}}</a></td>
+                          <td>miningIncome</td>
+                          <td>{{data.fee}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+      </div>
+      {% include 'pagination.html' %}
+    </div>
+    <br><br>
+  </div>
+{% include 'footer.html' %}
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  <script src="{% static 'js/taucommon.js' %}"></script>
+  <script>
+  var instance = M.Tabs.init("#tabs");
+
+// Or with jQuery
+
+    $(document).ready(function(){
+      $('#tabs').tabs();
+    });
+
+
+  </script>
+  </body>
+</html>

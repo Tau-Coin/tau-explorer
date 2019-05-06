@@ -1,0 +1,21 @@
+<!--   Icon Section   -->
+<div class="row">
+  <div class="col l2 offset-l5 s4 offset-s4">
+      <a href="/"><img style="width:100%;" src="/static/images/tau-logo.jpeg" alt=""></a>
+  </div>
+</div>
+<div class="row">
+    <form class="" action="/search/" method="post">
+        <!-- {%csrf_token%} -->
+        <input type="text" name="csrfmiddlewaretoken" value="{{csrf_token}}" style="display:none;">
+        <div class="input-field col s7 offset-s1 l7 offset-l2" style="margin-top:0;">
+            <!-- <i class="material-icons prefix">textsms</i> -->
+            <input type="text" name="searchkey" id="autocomplete-input" class="autocomplete" placeholder="You may enter a block height, block hash, tx hash or address.">
+            <!-- <label for="autocomplete-input">Autocomplete</label> -->
+        </div>
+        <div class="col s1 l1">
+            <a class="waves-effect waves-light btn" style="text-transform: capitalize;" id="agbtn">search</a>
+            <input type="submit" id="fmsub" name="" value="" style="display:none;">
+        </div>
+    </form>
+</div>

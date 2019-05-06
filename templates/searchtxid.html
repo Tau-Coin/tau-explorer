@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>TAU Explorer</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/taucommon.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style media="screen">
+  table {
+    min-height: .01%;
+    overflow-x: auto;
+    width: 100%;
+    overflow-y: hidden;
+    max-width: 100%;
+    }
+    table td{
+        word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+{% include 'nav.html' %}
+
+  <div class="container">
+    <div class="section">
+        {% include 'searchcomponent.html' %}
+        {% include 'info.html' %}
+      <div class="row" style="overflow-x: auto;overflow-y: hidden;">
+          <div class="col l10 offset-l1" >
+              <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <th colspan="4">TAU txid: {{txhash}}</th>
+                      </tr>
+                      <tr>
+                          <th>Difficulty</th>
+                          <th>Block Height</th>
+                          <th>Block Hash</th>
+                          <th>Timestamp</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas%}
+                      <tr>
+                          <td>{{data.difficulty}}</td>
+                          <td><a href="/block/{{data.blockhash}}">{{data.blockheight}}</a></td>
+                          <td><a href="/block/{{data.blockhash}}">{{data.blockhash}}</a></td>
+                          <td>{{data.txtime}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="row" style="overflow-x: auto;overflow-y: hidden;">
+          <div class="col l5 offset-l1" >
+              <table style="overflow-y: hidden;overflow-x:auto;">
+                  <thead>
+                      <tr>
+                          <th colspan="2">Input Addresses</th>
+                      </tr>
+                      <tr>
+                          <th>Address</th>
+                          <th>Amount (TAU)</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas%}
+                      <tr>
+                          <td><a href="/address/{{data.sender}}">{{data.sender}}</a></td>
+                          <td>{{data.amount}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          <div class="col l5" >
+              <table style="overflow-y: hidden;overflow-x:auto;">
+                  <thead>
+                      <tr>
+                          <th colspan="2">Recipients</th>
+                      </tr>
+                      <tr>
+                          <th>Address</th>
+                          <th>Amount (TAU)</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for data in datas%}
+                      <tr>
+                          <td><a href="/address/{{data.receiver}}">{{data.receiver}}</a></td>
+                          <td>{{data.amount}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      {% include 'pagination.html' %}
+    </div>
+    <br><br>
+  </div>
+{% include 'footer.html' %}
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  <script src="{% static 'js/taucommon.js' %}"></script>
+  </body>
+</html>

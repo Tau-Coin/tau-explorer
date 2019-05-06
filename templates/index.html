@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>TAU Explorer</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/taucommon.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="{% static 'font/tau/style.css' %}"></head>
+  <style media="screen">
+  table {
+    min-height: .01%;
+    overflow-x: auto;
+    width: 100%;
+    overflow-y: hidden;
+    max-width: 100%;
+    }
+    table td{
+        word-break: break-all;
+    }
+    table th:hover{
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+ {% include 'nav.html' %}
+
+  <div class="container">
+    <div class="section">
+
+        {% include 'searchcomponent.html' %}
+
+      <div class="row" style="overflow-x: auto;overflow-y: hidden;" id="tabTop100">
+          <div class="col l10 offset-l1" >
+              <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <!-- 默认倒序 -->
+                          <th data-currstatus="2" @click="orderbyblock">
+                              <span>block</span>
+                              <i class="icon icon-icon_arrow_down"></i>
+                          </th>
+                          <th data-currstatus="0" @click="orderbytxhash">
+                              <span>txhash</span>
+                              <i class="icon"></i>
+                          </th>
+                          <th data-currstatus="0" >Recipients</th>
+                          <th data-currstatus="0" @click="orderbyamount">
+                              <span>Amount (TAU)</span>
+                              <i class="icon"></i>
+                          </th>
+                          <th data-currstatus="0" @click="orderbytxtime">
+                              <span>Timestamp</span>
+                              <i class="icon"></i>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <input type="text" id="topdata" style="display:none;" name="" value="{{ datas }}">
+                      <tr v-for="data in tops">
+                          <td><a :href="'/block/'+data.blockhash" v-text="data.blockheight"></a></td>
+                          <td><a :href="'/tx/'+data.txhash" v-text="data.txhash"></a></td>
+                          <td>1</td>
+                          <td v-text="data.amount"></td>
+                          <td v-text="data.txtime"></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      {% include 'pagination.html' %}
+    </div>
+    <br><br>
+  </div>
+{% include 'footer.html' %}
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  <script src="{% static 'js/taucommon.js' %}"></script>
+  <script src="{% static 'js/vue.js' %}"></script>
+
+  <script>
+
+  function sortKey(array,key){
+      return array.sort(function(a,b){
+          var x = a[key];
+          var y = b[key];
+          return ((x<y)?-1:(x>y)?1:0)
+      })
+  }
+    let tabTop = new Vue({
+        el:"#tabTop100",
+        data:{
+            tops:sortKey(eval($("#topdata").val()=="()"?[]:$("#topdata").val()),"blockheight").reverse(),
+        },
+        methods:{
+            orderbyblock:function(event){
+                var Ts = event.currentTarget;
+                var currstatus=0;
+                var currstatus = $(Ts).attr("data-currstatus");
+                if (currstatus=="0"||currstatus=="2") {
+                    $(Ts).attr("data-currstatus","1");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_down").addClass("icon-icon_arrow_up");
+                    // 正序
+                    this.tops = this.orderbyblockasc;
+                }else if (currstatus=="1") {
+                    $(Ts).attr("data-currstatus","2");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_up").addClass("icon-icon_arrow_down");
+                    // 倒序
+                    this.tops = this.orderbyblockdesc;
+                }
+                $(Ts).siblings().children(".icon").removeClass("icon-icon_arrow_up").removeClass("icon-icon_arrow_down")
+                $(Ts).siblings().attr("data-currstatus","0")
+            },
+            orderbytxhash:function(event){
+                var Ts = event.currentTarget;
+                var currstatus=0;
+                var currstatus = $(Ts).attr("data-currstatus");
+                if (currstatus=="0"||currstatus=="2") {
+                    $(Ts).attr("data-currstatus","1");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_down").addClass("icon-icon_arrow_up");
+                    // 正序
+                    this.tops = this.orderbytxhashasc;
+                }else if (currstatus=="1") {
+                    $(Ts).attr("data-currstatus","2");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_up").addClass("icon-icon_arrow_down");
+                    // 倒序
+                    this.tops = this.orderbytxhashdesc;
+                }
+                $(Ts).siblings().children(".icon").removeClass("icon-icon_arrow_up").removeClass("icon-icon_arrow_down")
+                $(Ts).siblings().attr("data-currstatus","0")
+            },
+            orderbyamount:function(event){
+                var Ts = event.currentTarget;
+                var currstatus=0;
+                var currstatus = $(Ts).attr("data-currstatus");
+                if (currstatus=="0"||currstatus=="2") {
+                    $(Ts).attr("data-currstatus","1");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_down").addClass("icon-icon_arrow_up");
+                    // 正序
+                    this.tops = this.orderbyamountasc;
+                }else if (currstatus=="1") {
+                    $(Ts).attr("data-currstatus","2");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_up").addClass("icon-icon_arrow_down");
+                    // 倒序
+                    this.tops = this.orderbyamountdesc;
+                }
+                $(Ts).siblings().children(".icon").removeClass("icon-icon_arrow_up").removeClass("icon-icon_arrow_down")
+                $(Ts).siblings().attr("data-currstatus","0")
+            },
+            orderbytxtime:function(event){
+                var Ts = event.currentTarget;
+                var currstatus=0;
+                var currstatus = $(Ts).attr("data-currstatus");
+                if (currstatus=="0"||currstatus=="2") {
+                    $(Ts).attr("data-currstatus","1");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_down").addClass("icon-icon_arrow_up");
+                    // 正序
+                    this.tops = this.orderbytxtimeasc;
+                }else if (currstatus=="1") {
+                    $(Ts).attr("data-currstatus","2");
+                    $(Ts).children(".icon").removeClass("icon-icon_arrow_up").addClass("icon-icon_arrow_down");
+                    // 倒序
+                    this.tops = this.orderbytxtimedesc;
+                }
+                $(Ts).siblings().children(".icon").removeClass("icon-icon_arrow_up").removeClass("icon-icon_arrow_down")
+                $(Ts).siblings().attr("data-currstatus","0")
+            },
+        },
+        computed:{
+            orderbyblockasc:function(){
+                return sortKey(this.tops,'blockheight');
+            },
+            orderbyblockdesc:function(){
+                return sortKey(this.tops,'blockheight').reverse();
+            },
+            orderbytxhashasc:function(){
+                return sortKey(this.tops,'txhash');
+            },
+            orderbytxhashdesc:function(){
+                return sortKey(this.tops,'txhash').reverse();
+            },
+            orderbyamountasc:function(){
+                return sortKey(this.tops,'amount');
+            },
+            orderbyamountdesc:function(){
+                return sortKey(this.tops,'amount').reverse();
+            },
+            orderbytxtimeasc:function(){
+                return sortKey(this.tops,'txtime');
+            },
+            orderbytxtimedesc:function(){
+                return sortKey(this.tops,'txtime').reverse();
+            },
+        }
+    })
+
+  </script>
+  </body>
+</html>

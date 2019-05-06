@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style media="screen">
+  table {
+    min-height: .01%;
+    overflow-x: auto;
+    width: 100%;
+    overflow-y: hidden;
+    max-width: 100%;
+    }
+    table td{
+        word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <nav class="orange lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo">Logo</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">explorer</a></li>
+            <li><a href="#">movement</a></li>
+            <li><a href="#">network</a></li>
+            <li><a href="#">top100</a></li>
+            <li><a href="#">api</a></li>
+        </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+          <li><a href="#">explorer</a></li>
+          <li><a href="#">movement</a></li>
+          <li><a href="#">network</a></li>
+          <li><a href="#">top100</a></li>
+          <li><a href="#">api</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+      <i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col l2 offset-l5 s4 offset-s4">
+            <img style="width:100%;" src="http://block.taucoin.io/images/logo-taut.jpg" alt="">
+        </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s7 offset-s1 l7 offset-l2" style="margin-top:0;">
+          <i class="material-icons prefix">textsms</i>
+          <input type="text" id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">Autocomplete</label>
+        </div>
+        <div class="col s1 l1">
+            <a class="waves-effect waves-light btn">button</a>
+        </div>
+      </div>
+      <div class="row" style="overflow-x: auto;overflow-y: hidden;">
+          <div class="col l10 offset-l1" >
+              <table style="overflow-y: hidden;overflow-x:auto;min-width:640px;">
+                  <thead>
+                      <tr>
+                          <th>block</th>
+                          <th>txhash</th>
+                          <th>Recipients</th>
+                          <th>Amount (TAUT)</th>
+                          <th>Timestamp</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>324208</td>
+                          <td>6db6986ef25bd8f57a6039f029ba1c86cb7637a206db3edfdbccd85158ecec5a</td>
+                          <td>1</td>
+                          <td>0.00261000</td>
+                          <td>26th Apr 2019 10:44:23</td>
+                      </tr>
+                      <tr>
+                          <td>324208</td>
+                          <td>6db6986ef25bd8f57a6039f029ba1c86cb7637a206db3edfdbccd85158ecec5a</td>
+                          <td>1</td>
+                          <td>0.00261000</td>
+                          <td>26th Apr 2019 10:44:23</td>
+                      </tr>
+                      <tr>
+                          <td>324208</td>
+                          <td>6db6986ef25bd8f57a6039f029ba1c86cb7637a206db3edfdbccd85158ecec5a</td>
+                          <td>1</td>
+                          <td>0.00261000</td>
+                          <td>26th Apr 2019 10:44:23</td>
+                      </tr>
+                      <tr>
+                          <td>324208</td>
+                          <td>6db6986ef25bd8f57a6039f029ba1c86cb7637a206db3edfdbccd85158ecec5a</td>
+                          <td>1</td>
+                          <td>0.00261000</td>
+                          <td>26th Apr 2019 10:44:23</td>
+                      </tr>
+                      <tr>
+                          <td>324208</td>
+                          <td>6db6986ef25bd8f57a6039f029ba1c86cb7637a206db3edfdbccd85158ecec5a</td>
+                          <td>1</td>
+                          <td>0.00261000</td>
+                          <td>26th Apr 2019 10:44:23</td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col l8 offset-l2">
+
+              <ul class="pagination center-align" >
+                  <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                  <li class="active"><a href="#!">1</a></li>
+                  <li class="waves-effect"><a href="#!">2</a></li>
+                  <li class="waves-effect"><a href="#!">3</a></li>
+                  <li class="waves-effect"><a href="#!">4</a></li>
+                  <li class="waves-effect"><a href="#!">5</a></li>
+                  <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+              </ul>
+          </div>
+
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+  <footer class="page-footer orange">
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    <div class="footer-copyright">
+      <div class="container">
+          Tau explorer
+     Based on Iquidus Explorer
+
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
